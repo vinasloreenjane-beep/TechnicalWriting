@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TechWrite Corner: a cute student-made learning website about technical writing.">
+<title>TechWrite Corner | Learn to Write Clearly</title>
+<style>
+:root{
+ --purple:#7963b8;--deep:#554184;--lav:#eee8ff;--blue:#dff3ff;--pink:#ffe2ef;
+ --ink:#39334a;--muted:#746d82;--paper:#fffdfb;--line:#e9e2f2;--white:#fff;
+ --shadow:0 10px 28px rgba(86,66,128,.10);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:#fbf9ff;color:var(--ink);font-family: "Trebuchet MS",Arial,sans-serif;line-height:1.65}
+a{color:var(--deep)}
+button,input,textarea,select{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent}
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,253,251,.94);backdrop-filter:blur(12px);border-bottom:2px solid #eee7fb}
+.nav-wrap{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--deep);font-weight:900;font-size:1.2rem;white-space:nowrap}
+.brand-mark{width:46px;height:46px;border-radius:15px;background:var(--lav);display:grid;place-items:center;border:2px solid #d9cdf7;font-size:1.55rem;transform:rotate(-4deg)}
+.nav-links{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.nav-link{border:0;background:transparent;text-decoration:none;color:var(--ink);padding:9px 13px;border-radius:13px;font-weight:800;font-size:.94rem;cursor:pointer}
+.nav-link:hover,.nav-link.active{background:var(--lav);color:var(--deep)}
+.menu-btn{display:none;border:0;background:var(--blue);padding:9px 12px;border-radius:12px;color:var(--deep);font-weight:800}
+main{min-height:75vh}
+.page{display:none;animation:fade .25s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.container{max-width:1120px;margin:auto;padding:38px 22px 60px}
+.hero{position:relative;overflow:hidden;border:2px solid #e5dafc;border-radius:32px;background:linear-gradient(125deg,#f0eaff 0%,#e5f6ff 56%,#ffeaf3 100%);padding:clamp(28px,5vw,62px);display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center;box-shadow:var(--shadow)}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:#fff9;border:1px solid #fff;padding:6px 13px;border-radius:999px;color:var(--deep);font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+h1,h2,h3,h4{line-height:1.2;color:var(--deep);margin-top:0}
+h1{font-size:clamp(2.25rem,5vw,4.2rem);margin:18px 0 16px;letter-spacing:-.04em}
+h2{font-size:clamp(1.8rem,3vw,2.6rem);margin-bottom:12px}
+h3{font-size:1.35rem;margin-bottom:10px}
+h4{font-size:1.05rem;margin-bottom:8px}
+p{margin:0 0 14px}
+.lead{font-size:1.1rem;max-width:650px;color:#514a65}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--purple);color:#fff;text-decoration:none;border:2px solid var(--purple);padding:12px 19px;border-radius:15px;font-weight:900;cursor:pointer;transition:.18s;box-shadow:0 5px 0 #59468c}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #59468c}
+.btn.secondary{background:#fff;color:var(--deep);border-color:#d8cdf5;box-shadow:0 4px 0 #e1d9f3}
+.btn.small{padding:8px 13px;font-size:.9rem;box-shadow:none}
+.btn.pink{background:#ef9fc3;border-color:#ef9fc3;box-shadow:0 5px 0 #d77ca4;color:#452a43}
+.hero-art{min-height:270px;display:grid;place-items:center;position:relative}
+.notebook{width:min(280px,90%);height:245px;background:#fffdfb;border:3px solid #d8c9f3;border-radius:18px;box-shadow:10px 12px 0 #b6a2e2;transform:rotate(4deg);position:relative;padding:35px 22px 18px 43px;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 26px,#d9eaf6 27px,#d9eaf6 28px)}
+.notebook:before{content:"";position:absolute;left:23px;top:0;bottom:0;border-left:2px dashed #eaa7c6}
+.notebook h3{font-family:"Trebuchet MS",sans-serif;font-size:1.3rem;transform:rotate(-3deg);margin:2px 0 14px}
+.notebook p{font-size:.86rem;line-height:1.7}
+.pencil{position:absolute;width:18px;height:180px;background:#f5b4d0;border:2px solid #d77fa8;border-radius:6px;transform:rotate(28deg);right:3%;top:7%;box-shadow:inset 0 0 0 4px #ffd7e8}
+.pencil:before{content:"";position:absolute;top:-18px;left:-2px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:18px solid #f2d8ad}
+.pencil:after{content:"";position:absolute;bottom:-8px;left:3px;width:8px;height:8px;background:#b9a3e8;border-radius:0 0 4px 4px}
+.sticker{position:absolute;padding:10px 13px;border-radius:7px;font-size:.83rem;font-weight:900;box-shadow:3px 5px 0 #0000000d;transform:rotate(-7deg)}
+.sticker.one{background:#ffe3ef;left:0;top:7%}.sticker.two{background:#dff4ff;right:0;bottom:11%;transform:rotate(7deg)}.sticker.three{background:#fff2bd;left:4%;bottom:0;transform:rotate(4deg)}
+.section-heading{text-align:center;margin:52px 0 25px}
+.section-heading p{color:var(--muted);max-width:660px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.card.blue{background:#f2fbff;border-color:#d8effb}.card.pink{background:#fff5f9;border-color:#f8dbe9}.card.purple{background:#f8f5ff;border-color:#e3d9fb}
+.card-icon{font-size:2rem;margin-bottom:9px}
+.card p,.muted{color:var(--muted)}
+.pill{display:inline-block;background:var(--lav);color:var(--deep);padding:4px 9px;border-radius:999px;font-size:.78rem;font-weight:900;margin:0 5px 6px 0}
+.note{padding:16px 18px;border-left:5px solid #c1a9ef;background:#f5f0ff;border-radius:0 14px 14px 0;margin:17px 0}
+.note.blue{background:#eef9ff;border-color:#8acde9}.note.pink{background:#fff0f6;border-color:#ef9fc3}.note.yellow{background:#fff9dc;border-color:#e9cc64}
+.content-section{scroll-margin-top:100px;margin:24px 0;padding:clamp(20px,3vw,32px);background:var(--paper);border:2px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:22px 0}
+.toc a{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid #e4daf8;background:#fbf8ff;border-radius:14px;text-decoration:none;font-weight:800}
+.toc a:hover{background:var(--blue);border-color:#b7e3f6}
+.lesson-number{width:31px;height:31px;display:grid;place-items:center;background:var(--lav);border-radius:10px;color:var(--deep);flex-shrink:0}
+table{border-collapse:collapse;width:100%;margin:16px 0;background:#fff;border-radius:12px;overflow:hidden;font-size:.94rem}
+th,td{border:1px solid #e6dfef;padding:11px 12px;text-align:left;vertical-align:top}
+th{background:#eee8ff;color:var(--deep)}
+tr:nth-child(even) td{background:#fcfaff}
+.example{background:#f8fbff;border:1px dashed #b9dff0;border-radius:15px;padding:15px 17px;margin:12px 0}
+.example strong{color:var(--deep)}
+.quiz{margin-top:20px;background:#f9f5ff;border:2px solid #e5daf9;border-radius:18px;padding:18px}
+.question{padding:13px 0;border-bottom:1px solid #e5dff0}
+.question:last-of-type{border-bottom:0}
+.question p{font-weight:800;margin-bottom:8px}
+.option{display:block;font-weight:500;margin:6px 0;cursor:pointer}
+.option input{accent-color:var(--purple);margin-right:7px}
+.quiz-result{font-weight:900;margin-top:12px;padding:12px;border-radius:12px;display:none}
+.quiz-result.show{display:block;background:#e6f7ed;color:#246544}
+.lesson-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.completed{background:#e8f8ef!important;border-color:#a8dec0!important}
+.progress-wrap{background:#eee7f8;height:12px;border-radius:999px;overflow:hidden;margin:10px 0 5px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#a78be2,#ef9fc3,#9ddcf4);transition:width .25s}
+.search-row{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.search-row input{flex:1;min-width:220px;padding:12px 15px;border:2px solid #ded3f4;border-radius:14px;background:#fff}
+.sample-letter{background:#fff;border:1px solid #d7dce7;border-radius:8px;padding:24px;max-width:760px;margin:16px auto;box-shadow:0 5px 18px #3331;font-family:Georgia,serif;line-height:1.55}
+.letter-label{font-family:"Trebuchet MS",sans-serif;background:#ffe2ef;color:#6a3b60;border-radius:5px;padding:2px 6px;font-size:.75rem;font-weight:900}
+.graphs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.graph-card{background:#fff;border:1px solid #e4dff0;border-radius:16px;padding:14px;min-width:0}
+.bar-chart{height:150px;display:flex;align-items:end;justify-content:space-around;gap:10px;padding:12px 8px 0;border-bottom:2px solid #8f87a1;background:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,#ece8f4 36px)}
+.bar{width:18%;border-radius:6px 6px 0 0;background:#a88be1;position:relative;min-height:5px}
+.bar:nth-child(2){background:#91d2ed}.bar:nth-child(3){background:#f2a9cb}.bar:nth-child(4){background:#f0d77e}
+.bar span{position:absolute;top:-23px;left:50%;transform:translateX(-50%);font-size:.75rem;font-weight:900}
+.chart-labels{display:flex;justify-content:space-around;font-size:.76rem;color:var(--muted);gap:3px}
+.line-svg{width:100%;height:auto;display:block}
+.pie-wrap{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px}
+.pie{width:125px;height:125px;border-radius:50%;background:conic-gradient(#a88be1 0 40%,#91d2ed 40% 70%,#f2a9cb 70% 90%,#f0d77e 90% 100%)}
+.legend{font-size:.78rem;line-height:1.8}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}
+.profile{display:grid;grid-template-columns:180px 1fr;gap:25px;align-items:center}
+.avatar{width:155px;height:155px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--pink),var(--blue));font-size:5rem;border:5px solid white;box-shadow:var(--shadow);margin:auto}
+.profile-photo{object-fit:cover;object-position:center top;}
+.contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
+form label{display:block;font-weight:900;color:var(--deep);margin:12px 0 5px}
+form input,form textarea{width:100%;border:2px solid #e0d7f3;border-radius:12px;padding:11px 12px;background:#fff}
+form textarea{min-height:125px;resize:vertical}
+.form-status{margin-top:12px;padding:12px;border-radius:12px;display:none}
+.form-status.show{display:block;background:#fff6dc;color:#5b4a1c}
+.site-footer{background:#eee8ff;border-top:2px solid #dfd3fa;text-align:center;padding:28px 18px;color:#5b4c7c}
+.footer-doodles{font-size:1.3rem;margin-bottom:5px}
+.back-top{position:fixed;right:18px;bottom:18px;z-index:10;border:0;border-radius:50%;width:47px;height:47px;background:var(--purple);color:#fff;font-size:1.25rem;box-shadow:var(--shadow);cursor:pointer;display:none}
+.back-top.show{display:block}
+.smallprint{font-size:.86rem;color:var(--muted)}
+.hidden{display:none!important}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.hero-art{min-height:260px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.graphs{grid-template-columns:1fr}.contact-layout{grid-template-columns:1fr}}
+@media(max-width:650px){
+ .nav-wrap{flex-wrap:wrap}.menu-btn{display:block}.nav-links{display:none;width:100%;flex-direction:column;align-items:stretch}.nav-links.open{display:flex}.nav-link{text-align:left}
+ .container{padding:24px 14px 42px}.hero{padding:25px 20px;border-radius:24px}.hero-art{min-height:245px}
+ .grid{grid-template-columns:1fr}.toc{grid-template-columns:1fr}.profile{grid-template-columns:1fr;text-align:center}
+ h1{font-size:2.5rem}.content-section{padding:18px}.sample-letter{padding:16px;font-size:.9rem}
+ table{font-size:.82rem}th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-header">
+ <div class="nav-wrap">
+  <a href="#home" class="brand" data-page="home" aria-label="TechWrite Corner home"><span class="brand-mark">📒✏️</span><span>TechWrite Corner</span></a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">☰ Menu</button>
+  <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+   <a class="nav-link active" href="#home" data-page="home">🏡 Home</a>
+   <a class="nav-link" href="#lectures" data-page="lectures">📚 Lectures</a>
+   <a class="nav-link" href="#about" data-page="about">🌷 About Us</a>
+   <a class="nav-link" href="#contact" data-page="contact">💌 Contact Info</a>
+  </nav>
+ </div>
+</header>
+<main>
+<section class="page active" id="home">
+ <div class="container">
+  <div class="hero">
+   <div>
+    <span class="eyebrow">✿ A little learning corner ✿</span>
+    <h1>Welcome to<br><span style="color:#9a7bd7">TechWrite Corner!</span></h1>
+    <p class="lead">Learn to write clearly, simply, and effectively.</p>
+    <p>Welcome to your friendly learning space for understanding technical writing! Explore easy lessons, useful examples, and practice activities that can help you communicate information in a clear and organized way.</p>
+    <div class="lesson-actions"><button class="btn" data-go="lectures">Explore the Lectures <span aria-hidden="true">→</span></button><a class="btn secondary" href="#about" data-page="about">Meet the Student 🌷</a></div>
+   </div>
+   <div class="hero-art" aria-label="Cute notebook and pencil illustration">
+    <div class="notebook"><h3>Today's notes ✿</h3><p>☑ Write clearly<br>☑ Keep it simple<br>☑ Check your facts<br>☑ Keep learning!</p></div>
+    <div class="pencil"></div><span class="sticker one">write clearly ✨</span><span class="sticker two">you can do it!</span><span class="sticker three">learn something new ♡</span>
+   </div>
+  </div>
+  <div class="section-heading"><h2>What's inside this notebook?</h2><p>Seven beginner-friendly lessons, with examples and little activities to help you practice.</p></div>
+  <div class="grid" id="homeLessonCards">
+   <article class="card purple"><div class="card-icon">📝</div><h3>Writing Basics</h3><p>Learn what technical writing is and how the ABCs help you communicate.</p><button class="btn small" data-go="lectures" data-target="lesson1">Start learning →</button></article>
+   <article class="card blue"><div class="card-icon">📚</div><h3>Plan & Organize</h3><p>Build outlines and discover different types of technical papers.</p><button class="btn small" data-go="lectures" data-target="lesson3">Explore topics →</button></article>
+   <article class="card pink"><div class="card-icon">📊</div><h3>Write & Present</h3><p>Practice sentence structure, formal letters, graphs, and charts.</p><button class="btn small" data-go="lectures" data-target="lesson5">See examples →</button></article>
+  </div>
+  <div class="section-heading"><h2>Why learn technical writing?</h2><p>Good technical writing helps people understand information and complete tasks correctly.</p></div>
+  <div class="grid">
+   <article class="card"><div class="card-icon">🎯</div><h3>Clear communication</h3><p>Readers can understand the message without guessing what the writer means.</p></article>
+   <article class="card"><div class="card-icon">🧩</div><h3>Better organization</h3><p>Headings, steps, lists, and visuals help readers find important information.</p></article>
+   <article class="card"><div class="card-icon">💼</div><h3>Useful everywhere</h3><p>Technical writing is useful for school reports, workplace documents, manuals, and instructions.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="page" id="lectures">
+ <div class="container">
+  <span class="eyebrow">📚 Open your learning notebook</span><h1 style="font-size:clamp(2.2rem,4vw,3.5rem)">Technical Writing Lessons</h1>
+  <p class="lead">Read each lesson at your own pace. Every topic includes explanations, examples, a practice activity, a summary, and a five-question quiz.</p>
+  <div class="card blue" style="margin-top:22px">
+   <h3>🌱 Your learning progress</h3><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div><p class="smallprint" id="progressText">0 of 7 lessons completed</p>
+   <p class="smallprint">Progress is saved in this browser on this device only.</p>
+  </div>
+  <div class="search-row"><input id="lectureSearch" type="search" placeholder="🔎 Search lessons or keywords..." aria-label="Search lectures"><button class="btn secondary" id="clearSearch">Clear search</button></div>
+  <h2>Table of Contents</h2>
+  <div class="toc" id="toc">
+   <a href="#lesson1"><span class="lesson-number">1</span> Technical Writing: Definition and Purpose</a>
+   <a href="#lesson2"><span class="lesson-number">2</span> The ABCs of Technical Writing</a>
+   <a href="#lesson3"><span class="lesson-number">3</span> Outlining the Subject</a>
+   <a href="#lesson4"><span class="lesson-number">4</span> Types of Technical Papers</a>
+   <a href="#lesson5"><span class="lesson-number">5</span> The Basic English Structure</a>
+   <a href="#lesson6"><span class="lesson-number">6</span> Parts of a Letter</a>
+   <a href="#lesson7"><span class="lesson-number">7</span> Graphs and Charts</a>
+  </div>
+
+  <article class="content-section lesson" id="lesson1" data-search="definition purpose audience clarity accuracy concise objective manuals reports instructions">
+   <span class="pill">LECTURE 01</span><h2>📝 Technical Writing: Definition and Purpose</h2>
+   <h3>What is technical writing?</h3>
+   <p><strong>Technical writing</strong> is the process of explaining specialized information in a clear, accurate, organized, and useful way. It helps a specific audience understand a topic, use a product, follow a procedure, or make a decision. Technical writing is not limited to computers or engineering; it is used whenever people need reliable instructions or explanations.</p>
+   <h3>Purpose and importance</h3><p>The main purpose is to help readers understand information or complete a task correctly. A good technical document saves time, reduces confusion, supports safe work, and gives readers information they can use. For example, a printer manual explains setup and troubleshooting, while a project report explains what was done and what was discovered.</p>
+   <h3>Characteristics of good technical writing</h3>
+   <table><thead><tr><th>Characteristic</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+   <tr><td>Clarity</td><td>The message is easy to understand.</td><td>“Click Save to store the file.”</td></tr><tr><td>Accuracy</td><td>Facts and instructions are correct.</td><td>Use the correct voltage listed by the manufacturer.</td></tr><tr><td>Conciseness</td><td>Unnecessary words are removed.</td><td>“Use the button” instead of “Make use of the button.”</td></tr><tr><td>Objectivity</td><td>Information is based on facts, not unsupported opinions.</td><td>Report measured results rather than saying a product is “the best.”</td></tr><tr><td>Audience awareness</td><td>Language and detail fit the reader.</td><td>A beginner's guide explains unfamiliar terms.</td></tr><tr><td>Logical organization</td><td>Ideas appear in a useful order.</td><td>Give setup steps before troubleshooting steps.</td></tr></tbody></table>
+   <h3>Know your audience</h3><p>Before writing, consider who will read the document, what they already know, what they need to do, and what terms they understand. A guide for new users should explain each step. A document for experienced technicians may use accepted technical terms but should still be clear.</p>
+   <h3>Where is technical writing used?</h3><ul><li><strong>Education:</strong> research papers, laboratory procedures, project reports.</li><li><strong>Business:</strong> proposals, memos, process documents, reports.</li><li><strong>Technology:</strong> software documentation, installation guides, help pages.</li><li><strong>Healthcare:</strong> patient instructions and equipment procedures.</li><li><strong>Industry:</strong> safety procedures, specifications, maintenance manuals.</li></ul>
+   <h3>Common examples</h3><p>User manuals explain how to operate a product. Instructional guides list steps for a task. Technical reports present methods and findings. Proposals recommend a plan. Standard operating procedures explain how to carry out recurring work consistently.</p>
+   <h3>Technical writing vs. creative writing</h3><table><tr><th>Technical writing</th><th>Creative writing</th></tr><tr><td>Usually prioritizes clear information and task completion.</td><td>Often prioritizes imagination, emotion, and storytelling.</td></tr><tr><td>Uses evidence, instructions, and structured explanations.</td><td>May use figurative language and invented characters or events.</td></tr><tr><td>Example: how to install an application.</td><td>Example: a short story about an application that comes alive.</td></tr></table>
+   <div class="example"><strong>Before:</strong> “The thing should be done after the button thing is pressed.”<br><strong>Improved:</strong> “Click Submit to send the form.”<br><span class="smallprint">The improved instruction names the action and the result clearly.</span></div>
+   <div class="note"><strong>Remember:</strong> Good technical writing puts the reader's needs first. Clear wording, correct information, and logical order work together.</div>
+   <h3>Practice activity</h3><p>Rewrite this instruction so a beginner can understand it: “Do the necessary procedure with the device after activation.”</p><details><summary><strong>Suggested answer</strong></summary><p>“Turn on the device, then follow the setup instructions on the screen.” The exact answer may vary, but it should name the action and avoid vague wording.</p></details>
+   <div class="quiz" data-quiz="1"><h3>✏️ Quick quiz</h3><div class="question"><p>1. What is the main purpose of technical writing?</p><label class="option"><input type="radio" name="q1a" value="a"> To confuse readers with complex words</label><label class="option"><input type="radio" name="q1a" value="b"> To communicate specialized information clearly and usefully</label><label class="option"><input type="radio" name="q1a" value="c"> To tell fictional stories only</label></div><div class="question"><p>2. Which characteristic means facts must be correct?</p><label class="option"><input type="radio" name="q1b" value="a"> Accuracy</label><label class="option"><input type="radio" name="q1b" value="b"> Decoration</label><label class="option"><input type="radio" name="q1b" value="c"> Imagination</label></div><div class="question"><p>3. What should a writer consider before writing?</p><label class="option"><input type="radio" name="q1c" value="a"> Only the font</label><label class="option"><input type="radio" name="q1c" value="b"> The audience and their needs</label><label class="option"><input type="radio" name="q1c" value="c"> The number of stickers</label></div><div class="question"><p>4. Which is an example of technical writing?</p><label class="option"><input type="radio" name="q1d" value="a"> A printer setup manual</label><label class="option"><input type="radio" name="q1d" value="b"> A fantasy poem only</label><label class="option"><input type="radio" name="q1d" value="c"> A made-up fairy tale</label></div><div class="question"><p>5. Why is logical organization useful?</p><label class="option"><input type="radio" name="q1e" value="a"> It hides the main point</label><label class="option"><input type="radio" name="q1e" value="b"> It makes documents longer</label><label class="option"><input type="radio" name="q1e" value="c"> It helps readers follow the information</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-B, 2-A, 3-B, 4-A, 5-C.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson1">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson2">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson2" data-search="ABCs accuracy brevity clarity editing concise specific jargon">
+   <span class="pill">LECTURE 02</span><h2>🩷 The ABCs of Technical Writing</h2><p>The ABCs are a simple reminder of three important principles: <strong>Accuracy, Brevity, and Clarity.</strong> They help writers create information readers can trust and understand.</p>
+   <h3>A — Accuracy 🎯</h3><p>Accuracy means that information is correct, complete enough for the task, and supported by reliable facts. Check names, dates, calculations, measurements, labels, and instructions before publishing. When using data from another source, record where it came from and do not change its meaning.</p><div class="example"><strong>Inaccurate:</strong> “The meeting is on Friday, May 12,” when the calendar shows May 13.<br><strong>Accurate:</strong> “The meeting is on Saturday, May 13.”<br><span class="smallprint">Always verify dates and details before sharing.</span></div>
+   <h3>B — Brevity ✂️</h3><p>Brevity means using only the words needed to communicate the message. It does not mean removing important information. Remove repeated ideas, unnecessary introductions, and wordy phrases while keeping the meaning complete.</p><table><tr><th>Wordy version</th><th>Concise version</th></tr><tr><td>“At this point in time, please make use of the Save button.”</td><td>“Click Save now.”</td></tr><tr><td>“Due to the fact that the file is large, uploading takes longer.”</td><td>“Because the file is large, uploading takes longer.”</td></tr><tr><td>“The system has the ability to create reports.”</td><td>“The system can create reports.”</td></tr></table>
+   <h3>C — Clarity 💡</h3><p>Clarity means readers can understand the message without guessing. Use familiar words, specific actions, short paragraphs, descriptive headings, and a logical sequence. Explain technical terms when the audience may not know them. Avoid vague words such as “thing,” “soon,” or “appropriate” when exact details are needed.</p><div class="example"><strong>Unclear:</strong> “Put it there and do the process.”<br><strong>Clear:</strong> “Place the paper in Tray 1, then press Print.”</div>
+   <h3>How the ABCs work together</h3><table><tr><th>Principle</th><th>Ask yourself</th><th>Editing check</th></tr><tr><td>Accuracy</td><td>Is it correct?</td><td>Verify facts and test instructions.</td></tr><tr><td>Brevity</td><td>Can I say it in fewer words?</td><td>Remove repetition without losing meaning.</td></tr><tr><td>Clarity</td><td>Will the reader understand it?</td><td>Replace vague wording and explain needed terms.</td></tr></table>
+   <h3>Before-and-after examples</h3><ol><li><strong>Before:</strong> “The user should proceed to make a selection of the button labeled Login.” <strong>After:</strong> “Select Login.” (Brevity)</li><li><strong>Before:</strong> “The application is very good.” <strong>After:</strong> “The application saves each submitted form to the database.” (Accuracy and specificity)</li><li><strong>Before:</strong> “Move the item to the other place.” <strong>After:</strong> “Move the file to the Documents folder.” (Clarity)</li></ol>
+   <div class="note pink"><strong>Editing trick:</strong> Read your writing aloud. Check each statement for correctness, remove unnecessary words, and ask whether a new reader would understand it.</div>
+   <h3>Practice activity</h3><p>Improve this sentence: “In the event that the user has forgotten the password, it is possible for them to make use of the password reset feature.”</p><details><summary><strong>Suggested answer</strong></summary><p>“If users forget their passwords, they can use the password reset feature.” It keeps the meaning while improving brevity and clarity.</p></details>
+   <div class="quiz" data-quiz="2"><h3>✏️ Quick quiz</h3><div class="question"><p>1. Which ABC principle checks whether facts are correct?</p><label class="option"><input type="radio" name="q2a" value="a"> Brevity</label><label class="option"><input type="radio" name="q2a" value="b"> Accuracy</label><label class="option"><input type="radio" name="q2a" value="c"> Decoration</label></div><div class="question"><p>2. Brevity means...</p><label class="option"><input type="radio" name="q2b" value="a"> Removing every detail</label><label class="option"><input type="radio" name="q2b" value="b"> Using complicated words</label><label class="option"><input type="radio" name="q2b" value="c"> Removing unnecessary words while keeping meaning</label></div><div class="question"><p>3. Which instruction is clearest?</p><label class="option"><input type="radio" name="q2c" value="a"> “Put it there.”</label><label class="option"><input type="radio" name="q2c" value="b"> “Save the file in the Documents folder.”</label><label class="option"><input type="radio" name="q2c" value="c"> “Do the thing.”</label></div><div class="question"><p>4. What should you do with a technical fact before publishing?</p><label class="option"><input type="radio" name="q2d" value="a"> Verify it</label><label class="option"><input type="radio" name="q2d" value="b"> Guess it</label><label class="option"><input type="radio" name="q2d" value="c"> Hide it</label></div><div class="question"><p>5. Which edit improves brevity?</p><label class="option"><input type="radio" name="q2e" value="a"> “At this point in time” → “Now”</label><label class="option"><input type="radio" name="q2e" value="b"> “Save” → “Save the file now by clicking Save”</label><label class="option"><input type="radio" name="q2e" value="c"> Add unrelated details</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-B, 2-C, 3-B, 4-A, 5-A.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson2">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson3">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson3" data-search="outline outlining subject topic outline sentence outline alphanumeric decimal organize">
+   <span class="pill">LECTURE 03</span><h2>📒 Outlining the Subject</h2><h3>What is an outline?</h3><p>An <strong>outline</strong> is a plan that arranges a topic's main ideas and supporting details before the writer drafts the full document. It acts like a map: it helps the writer stay focused, avoid repeating ideas, and put information in a logical order.</p>
+   <h3>Steps for making an outline</h3><ol><li><strong>Identify the topic:</strong> State what the document will discuss.</li><li><strong>Set the purpose:</strong> Decide whether you will explain, instruct, compare, or recommend.</li><li><strong>Know the audience:</strong> Consider what readers already know and what they need.</li><li><strong>Gather information:</strong> Collect relevant facts, examples, and sources.</li><li><strong>Group related ideas:</strong> Place similar points under the same heading.</li><li><strong>Arrange ideas:</strong> Use a sequence that fits the topic, such as chronological, general-to-specific, or problem-to-solution.</li><li><strong>Review:</strong> Check that each point supports the main topic and that no key step is missing.</li></ol>
+   <h3>Types and formats</h3><p>A <strong>topic outline</strong> uses short words or phrases. A <strong>sentence outline</strong> uses complete sentences to state each idea more fully. An <strong>alphanumeric outline</strong> uses Roman numerals, capital letters, Arabic numerals, and lowercase letters. A <strong>decimal outline</strong> uses numbers such as 1, 1.1, and 1.1.1.</p>
+   <div class="example"><strong>Topic outline example:</strong><br>I. Introduction<br>II. Preparation<br>III. Printing steps<br>IV. Troubleshooting<br>V. Conclusion<br><br><strong>Sentence outline example:</strong><br>I. This guide explains how a beginner can print a document.<br>II. The user should check the printer, ink, paper, and connection before printing.</div>
+   <h3>Sample outline: How to Use a Printer</h3><div class="note blue"><ol type="I"><li><strong>Introduction</strong><ol type="A"><li>Purpose of the guide</li><li>Intended users</li></ol></li><li><strong>Printer Preparation</strong><ol type="A"><li>Connect the printer</li><li>Check or install ink</li><li>Load paper</li></ol></li><li><strong>Printing a Document</strong><ol type="A"><li>Open the document</li><li>Select print settings</li><li>Print the document</li></ol></li><li><strong>Troubleshooting</strong><ol type="A"><li>Clear a paper jam according to the manual</li><li>Check ink and print quality</li></ol></li><li><strong>Conclusion</strong><ol type="A"><li>Review the main steps</li><li>Remind readers to follow printer safety guidance</li></ol></li></ol></div><p>The introduction tells readers what the guide covers. Preparation ensures the device is ready. The main steps explain the task in order. Troubleshooting addresses common problems. The conclusion briefly reinforces the process.</p>
+   <h3>Short outline for a technical report</h3><ol type="I"><li>Title and purpose</li><li>Background or problem</li><li>Method or procedure</li><li>Results and observations</li><li>Discussion</li><li>Conclusion and recommendations</li><li>References and appendices, when needed</li></ol>
+   <h3>Useful outlining tips</h3><ul><li>Use parallel wording for headings at the same level.</li><li>Do not create a subheading with only one child point; either add another point or combine them.</li><li>Keep each point relevant to the main topic.</li><li>For instructions, arrange steps in the order the reader must perform them.</li></ul>
+   <h3>Practice activity</h3><p>Arrange these ideas into a sensible outline for “Sending an Email”: write the message, open the email app, enter the recipient, review the message, click Send.</p><details><summary><strong>Suggested answer</strong></summary><ol><li>Open the email app.</li><li>Enter the recipient's email address.</li><li>Write the message and subject.</li><li>Review the message and recipient.</li><li>Click Send.</li></ol><p>This order follows the actual process and includes a check before sending.</p></details>
+   <div class="quiz" data-quiz="3"><h3>✏️ Quick quiz</h3><div class="question"><p>1. What is an outline?</p><label class="option"><input type="radio" name="q3a" value="a"> A plan that organizes main ideas and details</label><label class="option"><input type="radio" name="q3a" value="b"> A finished illustration only</label><label class="option"><input type="radio" name="q3a" value="c"> A list of unrelated words</label></div><div class="question"><p>2. Which outline uses complete sentences?</p><label class="option"><input type="radio" name="q3b" value="a"> Topic outline</label><label class="option"><input type="radio" name="q3b" value="b"> Sentence outline</label><label class="option"><input type="radio" name="q3b" value="c"> Picture outline</label></div><div class="question"><p>3. What should a writer identify early?</p><label class="option"><input type="radio" name="q3c" value="a"> Topic, purpose, and audience</label><label class="option"><input type="radio" name="q3c" value="b"> The final font only</label><label class="option"><input type="radio" name="q3c" value="c"> The footer color</label></div><div class="question"><p>4. What format uses I, A, 1, a?</p><label class="option"><input type="radio" name="q3d" value="a"> Alphanumeric</label><label class="option"><input type="radio" name="q3d" value="b"> Pie chart</label><label class="option"><input type="radio" name="q3d" value="c"> Paragraph format</label></div><div class="question"><p>5. Why should instruction steps be in order?</p><label class="option"><input type="radio" name="q3e" value="a"> To make the page colorful</label><label class="option"><input type="radio" name="q3e" value="b"> To help readers complete the task correctly</label><label class="option"><input type="radio" name="q3e" value="c"> To increase word count</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-A, 2-B, 3-A, 4-A, 5-B.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson3">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson4">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson4" data-search="types technical papers reports research proposals manuals instructions memo feasibility progress specifications">
+   <span class="pill">LECTURE 04</span><h2>📑 Types of Technical Papers</h2><p>Technical papers are documents used to explain information, report findings, recommend actions, or guide readers through a process. The best type depends on the purpose, audience, and information needed.</p>
+   <h3>Common types of technical documents</h3>
+   <table><thead><tr><th>Type</th><th>Purpose and audience</th><th>Typical parts / example</th></tr></thead><tbody>
+   <tr><td><strong>Technical report</strong></td><td>Records a problem, method, findings, or recommendations for managers, clients, or a project team.</td><td>Title, purpose, method, results, discussion, conclusion. Example: “Inventory System Testing Report.”</td></tr>
+   <tr><td><strong>Research paper</strong></td><td>Investigates a question and presents evidence for an academic or professional audience.</td><td>Abstract, introduction, literature review, method, results, discussion, references. Example: a study of online learning tools.</td></tr>
+   <tr><td><strong>Project proposal</strong></td><td>Persuades a decision-maker to approve a plan, project, or budget.</td><td>Problem, objectives, scope, method, timeline, budget, expected results. Example: proposal for a barangay reservation website.</td></tr>
+   <tr><td><strong>User manual</strong></td><td>Explains how to use a product or system.</td><td>Overview, requirements, setup, instructions, troubleshooting. Example: guide to using an online store.</td></tr>
+   <tr><td><strong>Instructional guide / how-to</strong></td><td>Shows readers how to complete a task in sequence.</td><td>Materials, numbered steps, warnings, result. Example: how to reset a password.</td></tr>
+   <tr><td><strong>Business letter</strong></td><td>Communicates formally with a person or organization.</td><td>Addresses, date, salutation, body, closing, signature. Example: request for project information.</td></tr>
+   <tr><td><strong>Memorandum (memo)</strong></td><td>Shares internal announcements, policies, or updates in an organization.</td><td>To, From, Date, Subject, message. Example: notice of a scheduled system update.</td></tr>
+   <tr><td><strong>Feasibility study</strong></td><td>Evaluates whether a proposed project is practical.</td><td>Technical, operational, financial, and schedule considerations. Example: assessing whether a small shop can adopt a POS system.</td></tr>
+   <tr><td><strong>Progress report</strong></td><td>Shows work completed, work remaining, issues, and next steps.</td><td>Summary, completed tasks, problems, schedule, next actions. Example: monthly capstone update.</td></tr>
+   <tr><td><strong>Technical specifications</strong></td><td>States precise requirements or characteristics a product or system must meet.</td><td>Performance, materials, dimensions, functions, standards. Example: minimum browser and server requirements.</td></tr>
+   </tbody></table>
+   <h3>How four common documents differ</h3><div class="grid"><div class="card purple"><h4>📋 Report</h4><p>Explains what happened, how it was examined, and what the findings mean.</p></div><div class="card blue"><h4>🔬 Research paper</h4><p>Answers a research question using a systematic method and evidence.</p></div><div class="card pink"><h4>💡 Proposal</h4><p>Recommends what should be done and why it should be approved.</p></div></div><div class="note yellow"><strong>Quick distinction:</strong> A manual helps someone use something. A proposal asks for approval. A report records and explains findings. A research paper investigates a question.</div>
+   <h3>Short sample excerpts</h3><div class="example"><strong>Report:</strong> “During testing, the system correctly recorded 18 of 20 sample reservations. Two tests revealed an error in date validation.”</div><div class="example"><strong>Proposal:</strong> “The project proposes an online reservation portal to reduce duplicate bookings and make facility schedules easier to check.”</div><div class="example"><strong>Manual:</strong> “To submit a reservation, sign in, choose a facility, select an available date, complete the form, and click Submit.”</div><div class="example"><strong>Memo:</strong> “To: All Staff | From: System Administrator | Subject: Scheduled Maintenance. The system will be unavailable from 8:00–9:00 PM on Friday.”</div>
+   <h3>Practice activity</h3><p>Choose the most suitable document: (1) You want permission to build a new website. (2) You need to explain how to reset a password. (3) You need to report the results of system testing. (4) You need to tell staff about a maintenance schedule.</p><details><summary><strong>Answer key</strong></summary><ol><li>Project proposal — requests approval for a plan.</li><li>User manual or instructional guide — explains steps.</li><li>Technical report — presents testing methods and findings.</li><li>Memo — communicates an internal announcement.</li></ol></details>
+   <div class="quiz" data-quiz="4"><h3>✏️ Quick quiz</h3><div class="question"><p>1. Which document usually requests approval for a project?</p><label class="option"><input type="radio" name="q4a" value="a"> Proposal</label><label class="option"><input type="radio" name="q4a" value="b"> User manual</label><label class="option"><input type="radio" name="q4a" value="c"> Memo only</label></div><div class="question"><p>2. Which document explains how to use a product?</p><label class="option"><input type="radio" name="q4b" value="a"> Feasibility study</label><label class="option"><input type="radio" name="q4b" value="b"> User manual</label><label class="option"><input type="radio" name="q4b" value="c"> Research paper</label></div><div class="question"><p>3. What does a progress report describe?</p><label class="option"><input type="radio" name="q4c" value="a"> Only the project title</label><label class="option"><input type="radio" name="q4c" value="b"> Fictional events</label><label class="option"><input type="radio" name="q4c" value="c"> Completed work, issues, and next steps</label></div><div class="question"><p>4. Which document states precise system requirements?</p><label class="option"><input type="radio" name="q4d" value="a"> Technical specifications</label><label class="option"><input type="radio" name="q4d" value="b"> Greeting card</label><label class="option"><input type="radio" name="q4d" value="c"> Personal diary</label></div><div class="question"><p>5. Which document commonly uses To, From, Date, and Subject?</p><label class="option"><input type="radio" name="q4e" value="a"> Memo</label><label class="option"><input type="radio" name="q4e" value="b"> Pie chart</label><label class="option"><input type="radio" name="q4e" value="c"> User manual cover only</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-A, 2-B, 3-C, 4-A, 5-A.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson4">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson5">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson5" data-search="basic English sentence structure subject predicate verb object complement parts of speech active passive agreement">
+   <span class="pill">LECTURE 05</span><h2>✏️ The Basic English Structure</h2><p>Good technical writing uses grammatically correct sentences so readers can follow instructions and understand information. A complete sentence normally expresses a complete thought and contains a subject and a predicate.</p>
+   <h3>Parts of a sentence</h3><table><tr><th>Part</th><th>Function</th><th>Example</th></tr><tr><td>Subject</td><td>Who or what the sentence is about.</td><td><span style="background:#ffe2ef;padding:2px 5px;border-radius:5px">The technician</span> repairs the computer.</td></tr><tr><td>Verb</td><td>Shows an action or state.</td><td>The technician <span style="background:#dff3ff;padding:2px 5px;border-radius:5px">repairs</span> the computer.</td></tr><tr><td>Object</td><td>Receives the action of a verb.</td><td>The technician repairs <span style="background:#eee8ff;padding:2px 5px;border-radius:5px">the computer</span>.</td></tr><tr><td>Predicate</td><td>What is said about the subject; includes the verb.</td><td>“repairs the computer”</td></tr><tr><td>Complement</td><td>Completes the meaning of a linking verb or describes an object.</td><td>The application is <strong>reliable</strong>.</td></tr></table>
+   <h3>Five common sentence patterns</h3><ol><li><strong>Subject + Verb (S + V):</strong> “The server runs.”</li><li><strong>Subject + Verb + Object (S + V + O):</strong> “The system stores records.”</li><li><strong>Subject + Linking Verb + Complement:</strong> “The application is reliable.”</li><li><strong>Subject + Verb + Indirect Object + Direct Object:</strong> “The administrator sent the staff a report.” (“staff” = indirect object; “report” = direct object.)</li><li><strong>Subject + Verb + Object + Object Complement:</strong> “The team found the system efficient.” (“system” = object; “efficient” describes the object.)</li></ol>
+   <h3>Four sentence types by structure</h3><ul><li><strong>Simple:</strong> one independent clause. “The user saves the file.”</li><li><strong>Compound:</strong> two independent clauses joined correctly. “The user saves the file, and the system confirms it.”</li><li><strong>Complex:</strong> one independent clause and at least one dependent clause. “When the upload finishes, the system displays a message.”</li><li><strong>Compound-complex:</strong> at least two independent clauses and one dependent clause. “When the upload finishes, the system displays a message, and the user receives a notification.”</li></ul>
+   <h3>Parts of speech</h3><p><strong>Noun</strong> names a person, place, thing, or idea; <strong>pronoun</strong> replaces a noun; <strong>verb</strong> expresses action or state; <strong>adjective</strong> describes a noun; <strong>adverb</strong> modifies a verb, adjective, or adverb; <strong>preposition</strong> shows a relationship; <strong>conjunction</strong> connects words or clauses; and an <strong>interjection</strong> expresses a sudden feeling. Technical documents commonly rely on precise nouns and verbs.</p>
+   <h3>Subject-verb agreement</h3><p>A singular subject generally takes a singular verb in the present tense; a plural subject takes a plural verb. Example: “The system <strong>stores</strong> data.” “The systems <strong>store</strong> data.” Check the real subject, especially when extra phrases appear between the subject and verb.</p>
+   <h3>Active and passive voice</h3><div class="example"><strong>Active:</strong> “The administrator updates the schedule.” The subject performs the action, so the sentence is direct.<br><strong>Passive:</strong> “The schedule is updated by the administrator.” The focus is on the schedule or the action. Passive voice can be useful when the actor is unknown or less important, but active voice is often clearer for instructions.</div>
+   <h3>Punctuation, capitalization, and parallel structure</h3><ul><li>Begin sentences with a capital letter and end them with appropriate punctuation.</li><li>Use commas to separate items in a list and to prevent confusion.</li><li>Keep list items grammatically parallel: “Create an account, verify your email, and sign in.”</li><li>Use consistent verb forms in instructions, usually direct commands: “Open the file. Select Print. Choose a printer.”</li></ul>
+   <h3>Common errors and corrections</h3><table><tr><th>Incorrect</th><th>Correct</th><th>Reason</th></tr><tr><td>The system store records.</td><td>The system stores records.</td><td>Singular subject needs “stores.”</td></tr><tr><td>Click save to Save the file</td><td>Click Save to save the file.</td><td>Correct capitalization and punctuation.</td></tr><tr><td>The user can entering a password.</td><td>The user can enter a password.</td><td>Use the base verb after “can.”</td></tr><tr><td>Open the app, entering your email, and click Login.</td><td>Open the app, enter your email, and click Login.</td><td>Use parallel verb forms.</td></tr></table>
+   <h3>Practice activity</h3><p>Correct this sentence: “The users opens the website and entering their password.”</p><details><summary><strong>Suggested answer</strong></summary><p>“The users open the website and enter their passwords.” The plural subject “users” takes “open,” and the verbs “open” and “enter” are parallel.</p></details>
+   <div class="quiz" data-quiz="5"><h3>✏️ Quick quiz</h3><div class="question"><p>1. In “The system stores records,” what is the subject?</p><label class="option"><input type="radio" name="q5a" value="a"> records</label><label class="option"><input type="radio" name="q5a" value="b"> stores</label><label class="option"><input type="radio" name="q5a" value="c"> The system</label></div><div class="question"><p>2. Which is a correct S + V + O sentence?</p><label class="option"><input type="radio" name="q5b" value="a"> The system stores records.</label><label class="option"><input type="radio" name="q5b" value="b"> Very reliable.</label><label class="option"><input type="radio" name="q5b" value="c"> The system.</label></div><div class="question"><p>3. Choose the correct sentence.</p><label class="option"><input type="radio" name="q5c" value="a"> The users opens the page.</label><label class="option"><input type="radio" name="q5c" value="b"> The users open the page.</label><label class="option"><input type="radio" name="q5c" value="c"> The users opening the page.</label></div><div class="question"><p>4. Which voice puts the performer first?</p><label class="option"><input type="radio" name="q5d" value="a"> Active voice</label><label class="option"><input type="radio" name="q5d" value="b"> Passive voice always</label><label class="option"><input type="radio" name="q5d" value="c"> No voice</label></div><div class="question"><p>5. Which list is parallel?</p><label class="option"><input type="radio" name="q5e" value="a"> Open the app, entering email, and click Login.</label><label class="option"><input type="radio" name="q5e" value="b"> Open the app, enter your email, and click Login.</label><label class="option"><input type="radio" name="q5e" value="c"> Open the app, email, and clicking Login.</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-C, 2-A, 3-B, 4-A, 5-B.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson5">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson6">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson6" data-search="parts formal business letter heading date inside address salutation body closing signature email">
+   <span class="pill">LECTURE 06</span><h2>💌 Parts of a Letter</h2><p>A formal or business letter is used to communicate professionally with an individual or organization. It may request information, make a complaint, apply for a position, give an official response, or share important information.</p>
+   <h3>Parts of a formal letter</h3><ol><li><strong>Heading / sender's address:</strong> The writer's address or organization details, if needed.</li><li><strong>Date:</strong> The date the letter is written.</li><li><strong>Inside address:</strong> The recipient's name, title, organization, and address.</li><li><strong>Salutation:</strong> A polite greeting, such as “Dear Ms. Santos:”</li><li><strong>Subject line (optional):</strong> A short statement of the letter's purpose.</li><li><strong>Body:</strong> The main message, usually organized into an opening, details, and closing request or next step.</li><li><strong>Complimentary close:</strong> A professional ending, such as “Sincerely,”</li><li><strong>Signature:</strong> The writer's handwritten or approved digital signature when required.</li><li><strong>Typed name and position:</strong> Identifies the writer.</li><li><strong>Enclosure / attachment note (if applicable):</strong> Identifies documents included with the letter.</li></ol>
+   <h3>Sample formal letter with labels</h3><div class="sample-letter">
+    <p><span class="letter-label">HEADING</span><br>BSIS-3A, City College of Calapan<br>Calapan City, Oriental Mindoro</p>
+    <p><span class="letter-label">DATE</span><br>October 10, 2026</p>
+    <p><span class="letter-label">INSIDE ADDRESS</span><br>Ms. Maria Santos<br>Information Systems Coordinator<br>Sample Learning Center<br>Calapan City</p>
+    <p><span class="letter-label">SALUTATION</span><br>Dear Ms. Santos:</p>
+    <p><span class="letter-label">SUBJECT</span><br><strong>Request for Information for a School Project</strong></p>
+    <p><span class="letter-label">BODY — OPENING</span><br>I am a third-year Information Systems student conducting a school project about the use of digital systems in daily operations.</p>
+    <p><span class="letter-label">BODY — DETAILS</span><br>I would like to ask whether your office could share general information about the processes involved in managing records and preparing reports. The information will be used for academic purposes only, and any shared details will be handled respectfully.</p>
+    <p><span class="letter-label">BODY — CLOSING</span><br>Thank you for considering my request. I would appreciate any information or guidance you can provide.</p>
+    <p><span class="letter-label">COMPLIMENTARY CLOSE</span><br>Sincerely,</p>
+    <p><span class="letter-label">SIGNATURE AND TYPED NAME</span><br><br>Loreen Jane Claud Vinas<br>BSIS-3A Student</p>
+    <p><span class="letter-label">ENCLOSURE (ONLY IF INCLUDED)</span><br>Enclosure: Project information sheet</p>
+   </div>
+   <h3>Block format</h3><p>In full-block format, the main parts of the letter begin at the left margin, with blank lines separating sections. It is easy to scan and commonly used for business correspondence. Keep the tone polite, direct, and professional. Use short paragraphs and explain the request clearly.</p>
+   <h3>Formal vs. informal letters</h3><table><tr><th>Formal letter</th><th>Informal letter</th></tr><tr><td>Used for professional, school, or official purposes.</td><td>Used for friends, family, or casual personal communication.</td></tr><tr><td>Uses respectful language and a clear structure.</td><td>May use casual language and flexible formatting.</td></tr><tr><td>Example: request for information from an office.</td><td>Example: a note to a friend.</td></tr></table>
+   <h3>Basic professional email etiquette</h3><ul><li>Write a specific subject line.</li><li>Use a respectful greeting.</li><li>State your purpose early and keep the message organized.</li><li>Check spelling, names, attachments, and recipient addresses before sending.</li><li>Use a professional email address and close politely.</li><li>Do not use all capital letters or send sensitive information unnecessarily.</li></ul>
+   <h3>Common mistakes</h3><p>Avoid missing dates, incorrect recipient names, overly casual greetings, unclear requests, long blocks of text, spelling mistakes, and forgetting attachments mentioned in the letter.</p>
+   <h3>Practice activity</h3><p>Put these parts in a normal order: body, date, complimentary close, salutation, inside address, heading, signature.</p><details><summary><strong>Answer key</strong></summary><ol><li>Heading / sender's address</li><li>Date</li><li>Inside address</li><li>Salutation</li><li>Body</li><li>Complimentary close</li><li>Signature and typed name</li></ol></details>
+   <div class="quiz" data-quiz="6"><h3>✏️ Quick quiz</h3><div class="question"><p>1. What is the purpose of a salutation?</p><label class="option"><input type="radio" name="q6a" value="a"> To greet the recipient</label><label class="option"><input type="radio" name="q6a" value="b"> To list attachments only</label><label class="option"><input type="radio" name="q6a" value="c"> To show the date</label></div><div class="question"><p>2. Where does the main message appear?</p><label class="option"><input type="radio" name="q6b" value="a"> Heading</label><label class="option"><input type="radio" name="q6b" value="b"> Body</label><label class="option"><input type="radio" name="q6b" value="c"> Signature</label></div><div class="question"><p>3. Which is a professional closing?</p><label class="option"><input type="radio" name="q6c" value="a"> “Later lol”</label><label class="option"><input type="radio" name="q6c" value="b"> “Whatever”</label><label class="option"><input type="radio" name="q6c" value="c"> “Sincerely,”</label></div><div class="question"><p>4. What is the inside address?</p><label class="option"><input type="radio" name="q6d" value="a"> The recipient's details</label><label class="option"><input type="radio" name="q6d" value="b"> The writer's closing words</label><label class="option"><input type="radio" name="q6d" value="c"> The letter's title only</label></div><div class="question"><p>5. What should you check before sending a professional email?</p><label class="option"><input type="radio" name="q6e" value="a"> Only the font color</label><label class="option"><input type="radio" name="q6e" value="b"> Recipient, subject, spelling, and attachments</label><label class="option"><input type="radio" name="q6e" value="c"> Nothing</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-A, 2-B, 3-C, 4-A, 5-B.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson6">✓ Mark as completed</button><button class="btn small secondary" data-next="lesson7">Next lesson →</button></div>
+  </article>
+
+  <article class="content-section lesson" id="lesson7" data-search="graphs charts bar line pie histogram flowchart data visualization axis labels legend source">
+   <span class="pill">LECTURE 07</span><h2>📊 Graphs and Charts</h2><p>Graphs and charts turn data into visual forms so readers can compare values, see patterns, understand proportions, and make informed decisions. Choose a visual that fits the question and show the data honestly.</p>
+   <h3>Tables, graphs, and charts</h3><p>A <strong>table</strong> is useful when readers need exact values. A <strong>graph</strong> helps show comparisons or trends. A <strong>chart</strong> is a broad term for a visual representation of information, including pie charts and flowcharts.</p>
+   <h3>Essential elements</h3><ul><li><strong>Title:</strong> tells readers what the visual shows.</li><li><strong>Labels:</strong> name categories, axes, or data series.</li><li><strong>Axes and units:</strong> show the scale and what is being measured.</li><li><strong>Legend:</strong> explains colors or symbols when multiple series are shown.</li><li><strong>Data source:</strong> identifies where the information came from, when applicable.</li></ul>
+   <h3>Sample dataset: imaginary shop sales</h3><p>The following are invented sample values for learning purposes, not real business records.</p><table><tr><th>Product category</th><th>Sales in September (₱)</th><th>Share of total</th></tr><tr><td>Skincare</td><td>₱4,000</td><td>40%</td></tr><tr><td>Makeup</td><td>₱3,000</td><td>30%</td></tr><tr><td>Fragrance</td><td>₱2,000</td><td>20%</td></tr><tr><td>Accessories</td><td>₱1,000</td><td>10%</td></tr><tr><th>Total</th><th>₱10,000</th><th>100%</th></tr></table>
+   <div class="graphs">
+    <div class="graph-card"><h3>📊 Bar graph</h3><p class="smallprint">September sales by category (₱)</p><div class="bar-chart" role="img" aria-label="Bar chart: Skincare 4000 pesos, Makeup 3000, Fragrance 2000, Accessories 1000"><div class="bar" style="height:100%"><span>4k</span></div><div class="bar" style="height:75%"><span>3k</span></div><div class="bar" style="height:50%"><span>2k</span></div><div class="bar" style="height:25%"><span>1k</span></div></div><div class="chart-labels"><span>Skin</span><span>Makeup</span><span>Fragrance</span><span>Other</span></div><p><strong>Interpretation:</strong> Skincare has the highest sales, while accessories has the lowest. Bar graphs are useful for comparing categories.</p></div>
+    <div class="graph-card"><h3>📈 Line graph</h3><p class="smallprint">Illustrative monthly sales trend (₱)</p><svg class="line-svg" viewBox="0 0 300 180" role="img" aria-label="Line graph of sample sales from June to September: 5000, 6500, 7000, 10000 pesos"><g stroke="#e7e0f0" stroke-width="1"><line x1="38" y1="25" x2="280" y2="25"/><line x1="38" y1="65" x2="280" y2="65"/><line x1="38" y1="105" x2="280" y2="105"/><line x1="38" y1="145" x2="280" y2="145"/></g><g stroke="#8d839f" stroke-width="2"><line x1="38" y1="15" x2="38" y2="145"/><line x1="38" y1="145" x2="280" y2="145"/></g><polyline points="55,112 125,82 195,72 265,30" fill="none" stroke="#8b72ca" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><g fill="#f09ec3" stroke="#fff" stroke-width="2"><circle cx="55" cy="112" r="5"/><circle cx="125" cy="82" r="5"/><circle cx="195" cy="72" r="5"/><circle cx="265" cy="30" r="5"/></g><g fill="#655a78" font-size="10"><text x="45" y="163">Jun</text><text x="115" y="163">Jul</text><text x="185" y="163">Aug</text><text x="255" y="163">Sep</text><text x="2" y="29">10k</text><text x="8" y="69">7k</text><text x="8" y="109">5k</text></g></svg><p><strong>Interpretation:</strong> Sales rise over the sample period. Line graphs are useful for showing changes over time.</p></div>
+    <div class="graph-card"><h3>🥧 Pie chart</h3><p class="smallprint">Share of September sales</p><div class="pie-wrap"><div class="pie" role="img" aria-label="Pie chart showing skincare 40 percent, makeup 30 percent, fragrance 20 percent, accessories 10 percent"></div><div class="legend"><span><i class="dot" style="background:#a88be1"></i>Skincare 40%</span><br><span><i class="dot" style="background:#91d2ed"></i>Makeup 30%</span><br><span><i class="dot" style="background:#f2a9cb"></i>Fragrance 20%</span><br><span><i class="dot" style="background:#f0d77e"></i>Accessories 10%</span></div></div><p><strong>Interpretation:</strong> Skincare accounts for 40% of the total. Pie charts are useful for showing parts of one whole; percentages should total 100%.</p></div>
+   </div>
+   <h3>Other visual formats</h3><table><tr><th>Format</th><th>Best use</th><th>Example</th></tr><tr><td>Table</td><td>Exact values and detailed lookup</td><td>Inventory list with product quantities</td></tr><tr><td>Histogram</td><td>Distribution of numeric values grouped into ranges</td><td>Number of orders by delivery-time range</td></tr><tr><td>Flowchart</td><td>Steps and decision paths in a process</td><td>Reservation approval process</td></tr><tr><td>Organizational chart</td><td>Roles and reporting relationships</td><td>Company staff structure</td></tr></table>
+   <h3>Choosing the right visual</h3><ul><li>Use a bar graph to compare categories.</li><li>Use a line graph to show trends over time.</li><li>Use a pie chart to show parts of a whole when there are only a few categories.</li><li>Use a table when readers need exact values.</li><li>Use a flowchart for steps or decisions, not numerical comparisons.</li></ul>
+   <h3>Avoid misleading visuals</h3><p>Label axes and units. Use consistent scales and do not crop an axis in a way that exaggerates differences without clearly indicating it. Do not use 3D effects that make values hard to compare. Make sure percentages and totals are calculated correctly. Cite the source of real data and clearly label estimates or sample data.</p>
+   <h3>Practice activity</h3><p>Choose the best visual: (1) Compare sales of four product categories. (2) Show how monthly visitors change across a year. (3) Show the percentage of a budget spent on four categories. (4) Explain steps in troubleshooting a computer.</p><details><summary><strong>Answer key</strong></summary><ol><li>Bar graph — compares categories.</li><li>Line graph — shows change over time.</li><li>Pie chart — shows parts of a whole.</li><li>Flowchart — shows a process and possible decisions.</li></ol></details>
+   <div class="quiz" data-quiz="7"><h3>✏️ Quick quiz</h3><div class="question"><p>1. Which visual is best for comparing product categories?</p><label class="option"><input type="radio" name="q7a" value="a"> Bar graph</label><label class="option"><input type="radio" name="q7a" value="b"> Letter</label><label class="option"><input type="radio" name="q7a" value="c"> Memo</label></div><div class="question"><p>2. Which visual is useful for trends over time?</p><label class="option"><input type="radio" name="q7b" value="a"> Pie chart only</label><label class="option"><input type="radio" name="q7b" value="b"> Line graph</label><label class="option"><input type="radio" name="q7b" value="c"> Business letter</label></div><div class="question"><p>3. What should percentages in a complete pie chart total?</p><label class="option"><input type="radio" name="q7c" value="a"> 25%</label><label class="option"><input type="radio" name="q7c" value="b"> 80%</label><label class="option"><input type="radio" name="q7c" value="c"> 100%</label></div><div class="question"><p>4. What helps readers understand a graph's scale?</p><label class="option"><input type="radio" name="q7d" value="a"> Clear axis labels and units</label><label class="option"><input type="radio" name="q7d" value="b"> Unlabeled colors only</label><label class="option"><input type="radio" name="q7d" value="c"> A decorative border</label></div><div class="question"><p>5. Which visual best shows a decision-making process?</p><label class="option"><input type="radio" name="q7e" value="a"> Pie chart</label><label class="option"><input type="radio" name="q7e" value="b"> Flowchart</label><label class="option"><input type="radio" name="q7e" value="c"> Line graph</label></div><button class="btn small check-quiz">Check answers</button> <button class="btn small secondary reset-quiz">Reset quiz</button><div class="quiz-result" aria-live="polite"></div><p class="smallprint">Answer key: 1-A, 2-B, 3-C, 4-A, 5-B.</p></div>
+   <div class="lesson-actions"><button class="btn small mark-complete" data-lesson="lesson7">✓ Mark as completed</button><button class="btn small secondary" data-go="about">Meet the student →</button></div>
+  </article>
+  <div class="note blue"><strong>🎉 You reached the end!</strong> Review any lesson you want, try the quizzes again, and mark lessons complete as you go. Learning happens one page at a time.</div>
+ </div>
+</section>
+
+<section class="page" id="about">
+ <div class="container">
+  <span class="eyebrow">🌷 A little about the author</span><h1 style="font-size:clamp(2.2rem,4vw,3.5rem)">About the Student Behind the Notes</h1>
+  <div class="content-section">
+   <div class="profile"><img class="avatar profile-photo" src="profile.jpg" alt="Profile photo of Loreen Jane Claud Vinas"><div><h2>Hi, hello! Welcome to my learning corner.</h2><p>Hi! Welcome to TechWrite Corner! I created this website as part of my academic project to share what I have learned about technical writing. I want to improve my writing skills and learn how to present information in a clear, organized, and understandable way. Through this website, I hope to help other students understand technical writing through simple explanations, examples, and activities. Thank you for visiting my learning corner!</p><span class="pill">Student project</span><span class="pill">Technical Writing</span><span class="pill">Made with care 💜</span></div></div>
+  </div>
+  <div class="grid">
+   <article class="card purple"><div class="card-icon">👤</div><h3>My Profile</h3><p><strong>Name:</strong> <span contenteditable="true" class="editable">Loreen Jane Claud Vinas</span></p><p><strong>Course & Year:</strong> <span contenteditable="true" class="editable">Bachelor of Science in Information System</span></p><p><strong>Institution:</strong> <span contenteditable="true" class="editable">City College of Calapan</span></p><p><strong>Subject:</strong>English 2</p><p class="smallprint">Your name and course have been added. Add your school name before presenting. Changes made by clicking editable details are not saved after refreshing.</p></article>
+   <article class="card blue"><div class="card-icon">🎯</div><h3>My Learning Goals</h3><ul><li>Improve technical writing skills.</li><li>Organize information effectively.</li><li>Write clear instructions and professional documents.</li><li>Understand how to use graphs and charts.</li><li>Apply technical writing in future school and workplace projects.</li></ul></article>
+   <article class="card pink"><div class="card-icon">💗</div><h3>Why I Made This Website</h3><p>I wanted to put the lessons in one friendly place where students can read explanations, see examples, and check what they learned. I hope the notebook-inspired design makes studying feel a little more fun.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="page" id="contact">
+ <div class="container">
+  <span class="eyebrow">💌 Say hello</span><h1 style="font-size:clamp(2.2rem,4vw,3.5rem)">Let's Connect!</h1><p class="lead">Have a question, suggestion, or feedback about the lessons? Feel free to reach out. I'd be happy to hear from you!</p>
+  <div class="contact-layout" style="margin-top:24px">
+   <div class="card pink"><div class="card-icon" style="font-size:3rem">💌✏️</div><h2>Contact Information</h2><p><strong>Name:</strong> <span contenteditable="true" class="editable">Loreen Jane Claud Vinas</span></p><p><strong>Email:</strong> <span contenteditable="true" class="editable">vinasloreenjane@gmail.com</span></p><p><strong>Course & Section:</strong> <span contenteditable="true" class="editable">Bachelor of Science in Information System</span></p><p><strong>Institution:</strong> <span contenteditable="true" class="editable">City College of Calapan</span></p><p class="smallprint">Your contact details have been added. Add your school name if needed before presenting.</p><a href="mailto:vinasloreenjane@gmail.com" class="btn" id="emailLink">✉️ Email the student</a></div>
+   <div class="card blue"><h2>Send a Message</h2><p>This sample form checks your entries in the browser. It does not send or store messages because this demo has no email or server connection.</p><form id="contactForm" novalidate><label for="contactName">Your name *</label><input id="contactName" name="name" required autocomplete="name" placeholder="Enter your name"><label for="contactEmail">Your email *</label><input id="contactEmail" name="email" type="email" required autocomplete="email" placeholder="you@example.com"><label for="contactSubject">Subject *</label><input id="contactSubject" name="subject" required placeholder="What is your message about?"><label for="contactMessage">Message *</label><textarea id="contactMessage" name="message" required placeholder="Write your message here..."></textarea><button class="btn" type="submit">Check message ✨</button><div id="formStatus" class="form-status" role="status" aria-live="polite"></div></form></div>
+  </div>
+ </div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-doodles">📒 ✏️ 💜 🩵 🩷 ✉️</div><strong>TechWrite Corner</strong><p>© 2026 TechWrite Corner | A Student’s Technical Writing Learning Website</p><p>Made with 💜, 🩵, and 🩷 for learning.</p></footer>
+<button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script>
+(function(){
+ const pages=[...document.querySelectorAll('.page')];
+ const navLinks=[...document.querySelectorAll('.nav-link')];
+ const nav=document.getElementById('navLinks');
+ const menuBtn=document.getElementById('menuBtn');
+ function showPage(name, targetId){
+  if(!pages.some(p=>p.id===name)) name='home';
+  pages.forEach(p=>p.classList.toggle('active',p.id===name));
+  navLinks.forEach(a=>a.classList.toggle('active',a.dataset.page===name));
+  nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');
+  if(name==='lectures') updateProgress();
+  if(targetId){setTimeout(()=>{const el=document.getElementById(targetId);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60);}
+  else window.scrollTo({top:0,behavior:'smooth'});
+ }
+ document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();showPage(el.dataset.page);history.replaceState(null,'','#'+el.dataset.page);}));
+ document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>{const target=el.dataset.target;showPage(el.dataset.go,target);history.replaceState(null,'','#'+el.dataset.go+(target?'?'+target:''));}));
+ document.querySelectorAll('[data-next]').forEach(el=>el.addEventListener('click',()=>{const target=el.dataset.next;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('lectures').classList.add('active');navLinks.forEach(a=>a.classList.toggle('active',a.dataset.page==='lectures'));document.getElementById(target).scrollIntoView({behavior:'smooth'});updateProgress();}));
+ document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const id=a.getAttribute('href').slice(1);document.getElementById(id).scrollIntoView({behavior:'smooth'});}));
+ menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));});
+ const search=document.getElementById('lectureSearch');
+ function filterLessons(){const q=search.value.toLowerCase().trim();document.querySelectorAll('.lesson').forEach(l=>{const match=(l.innerText+' '+(l.dataset.search||'')).toLowerCase().includes(q);l.classList.toggle('hidden',!match);});document.querySelectorAll('.toc a').forEach(a=>{const target=document.querySelector(a.getAttribute('href'));a.classList.toggle('hidden',target?.classList.contains('hidden'));});}
+ search.addEventListener('input',filterLessons);document.getElementById('clearSearch').addEventListener('click',()=>{search.value='';filterLessons();search.focus();});
+ const answers={
+  '1':['b','a','b','a','c'],'2':['b','c','b','a','a'],'3':['a','b','a','a','b'],
+  '4':['a','b','c','a','a'],'5':['c','a','b','a','b'],'6':['a','b','c','a','b'],'7':['a','b','c','a','b']
+ };
+ document.querySelectorAll('.quiz').forEach(quiz=>{
+  quiz.querySelector('.check-quiz').addEventListener('click',()=>{
+   const key=answers[quiz.dataset.quiz];let score=0,answered=0;
+   for(let i=0;i<5;i++){const chosen=quiz.querySelector('input[name="q'+quiz.dataset.quiz+(String.fromCharCode(97+i))+ '"]:checked');if(chosen){answered++;if(chosen.value===key[i])score++;}}
+   const result=quiz.querySelector('.quiz-result');result.classList.add('show');result.textContent=answered<5?`You answered ${answered} of 5 questions. Your current score is ${score}/5. Please answer all questions for a complete score.`:`Your score: ${score}/5 (${Math.round(score/5*100)}%). ${score===5?'Perfect! Great job!':score>=3?'Good effort! Review the explanations and try again.':'Keep practicing! Review the lesson and try again.'}`;
+  });
+  quiz.querySelector('.reset-quiz').addEventListener('click',()=>{quiz.querySelectorAll('input[type=radio]').forEach(i=>i.checked=false);const r=quiz.querySelector('.quiz-result');r.textContent='';r.classList.remove('show');});
+ });
+ const storageKey='techwriteCornerCompleted';
+ function getCompleted(){try{return JSON.parse(localStorage.getItem(storageKey)||'[]')}catch(e){return []}}
+ function updateProgress(){const done=getCompleted();const count=done.length;document.getElementById('progressBar').style.width=(count/7*100)+'%';document.getElementById('progressText').textContent=`${count} of 7 lessons completed`;document.querySelectorAll('.mark-complete').forEach(btn=>{const isDone=done.includes(btn.dataset.lesson);btn.classList.toggle('completed',isDone);btn.textContent=isDone?'✓ Completed — click to undo':'✓ Mark as completed';});}
+ document.querySelectorAll('.mark-complete').forEach(btn=>btn.addEventListener('click',()=>{let done=getCompleted();if(done.includes(btn.dataset.lesson))done=done.filter(x=>x!==btn.dataset.lesson);else done.push(btn.dataset.lesson);try{localStorage.setItem(storageKey,JSON.stringify(done));}catch(e){}updateProgress();}));
+ const backTop=document.getElementById('backTop');window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>450));backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ document.getElementById('contactForm').addEventListener('submit',e=>{
+  e.preventDefault();const form=e.currentTarget;const status=document.getElementById('formStatus');status.classList.add('show');
+  if(!form.checkValidity()){status.textContent='Please complete all required fields and enter a valid email address.';form.reportValidity();return;}
+  status.textContent='Your message passed the form checks, but it has NOT been sent. This demonstration has no backend or email service. Please use the email link to contact the student.';
+ });
+ // Use the edited email detail for the mailto link when a valid address is entered.
+ document.getElementById('emailLink').addEventListener('click',function(e){
+  const spans=[...document.querySelectorAll('#contact .editable')];const email=spans[1]?.textContent.trim();
+  if(email && email.includes('@') && !email.includes('[')){this.href='mailto:'+email;}else{e.preventDefault();alert('Please replace vinasloreenjane@gmail.com with your real email address first.');}
+ });
+ // Allow direct loading of supported page hashes.
+ const initial=location.hash.replace('#','').split('?')[0];if(['home','lectures','about','contact'].includes(initial)&&initial!=='home'){pages.forEach(p=>p.classList.toggle('active',p.id===initial));navLinks.forEach(a=>a.classList.toggle('active',a.dataset.page===initial));}
+ updateProgress();
+})();
+</script>
+</body>
+</html>
